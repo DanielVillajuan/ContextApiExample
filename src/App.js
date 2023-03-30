@@ -1,17 +1,13 @@
 import './App.css';
-import PersonajeA from './PersonajeA';
-import PersonajeB from './PersonajeB';
 import { UserContext } from './context/UserContext';
 import { useContext } from 'react';
 
 function App() {
-  const { setUser } = useContext(UserContext);
+  const { consultingVersion } = useContext(UserContext);
 
   return (
     <div className="App">
-      <PersonajeA />
-      <PersonajeB />
-      <button onClick={()=>{ setUser('Leonardo') }}>ClickMe!</button>
+      <button onClick={consultingVersion}>Consult version</button>
     </div>
   );
 }
