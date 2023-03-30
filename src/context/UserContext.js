@@ -13,9 +13,6 @@ export const UserProvider = ({ children }) => {
   const consultingVersion = async () => {
     const res = await axios.get(process.env.REACT_APP_GITHUB_API);
     const versionUpdate = SemVer.lt(currentVersion, res.data.tag_name); // current , new
-    console.log(currentVersion);
-    console.log(versionUpdate);
-    console.log(res.data.tag_name);
     setNewVerion(versionUpdate);
     
   };
