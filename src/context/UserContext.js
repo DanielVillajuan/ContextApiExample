@@ -41,6 +41,7 @@ export const UserProvider = ({ children }) => {
     setInterval(()=>{
         consultingVersion();
     },1800000)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   return (
