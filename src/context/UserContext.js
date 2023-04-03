@@ -7,39 +7,39 @@ import "react-toastify/dist/ReactToastify.css";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [currentVersion, setCurrentVersion] = useState('');
+  const [currentVersion, setCurrentVersion] = useState("");
   const [newVersion, setNewVerion] = useState(false);
 
-  const consultingVersion = async () => {
+  const consultingVersion = async (currentVersion) => {
     const res = await axios.get(process.env.REACT_APP_GITHUB_API);
     const versionUpdate = SemVer.lt(currentVersion, res.data.tag_name); // current , new
     setNewVerion(versionUpdate);
-    
   };
-  const consultCurrentVersion = async() =>{
-      const res = await axios.get(process.env.REACT_APP_GITHUB_API);
-      setCurrentVersion(res.data.tag_name)
-  }
 
   const initialToast = () => {
     toast.warn("Hay una nueva version, refresca para actualizar", {
-        position: "bottom-right",
-        autoClose: false,
-        hideProgressBar: false,
-        closeOnClick: false,
-        draggable: false,
-        theme: "dark",
+      position: "bottom-right",
+      autoClose: false,
+      hideProgressBar: false,
+      closeOnClick: false,
+      draggable: false,
+      theme: "dark",
     });
-  }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
+    let res = "";
+    const consultCurrentVersion = async () => {
+      res = await axios.get(process.env.REACT_APP_GITHUB_API);
+      setCurrentVersion(res.data.tag_name);
+    };
     consultCurrentVersion();
     initialToast();
-    setInterval(()=>{
-        consultingVersion();
-    },1800000)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+    setInterval(() => {
+      consultingVersion(res);
+    }, 900000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <UserContext.Provider
@@ -53,9 +53,7 @@ export const UserProvider = ({ children }) => {
     >
       <h1>App</h1>
       <h2>Version actual: {currentVersion}</h2>
-      {newVersion ? (
-        <ToastContainer />
-      ) : null}
+      {newVersion ? <ToastContainer /> : null}
       {children}
     </UserContext.Provider>
   );
