@@ -36,7 +36,7 @@ export const UserProvider = ({ children }) => {
     consultCurrentVersion();
     initialToast();
     setInterval(() => {
-      consultingVersion(res);
+      consultingVersion(res.data.tag_name);
     }, 900000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
