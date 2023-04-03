@@ -26,10 +26,8 @@ export const UserProvider = ({ children }) => {
         position: "bottom-right",
         autoClose: false,
         hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+        closeOnClick: false,
+        draggable: false,
         theme: "dark",
     });
   }
@@ -56,16 +54,7 @@ export const UserProvider = ({ children }) => {
       <h1>App</h1>
       <h2>Version actual: {currentVersion}</h2>
       {newVersion ? (
-        <ToastContainer
-          position="bottom-right"
-          autoClose={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          theme="dark"
-        />
+        <ToastContainer />
       ) : null}
       {children}
     </UserContext.Provider>
