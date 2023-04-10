@@ -7,7 +7,6 @@ function App() {
 
   return (
     <div className="App">
-    {console.log('jpña')}
       <button onClick={consultingVersion}>Consult version</button>
     </div>
   );
